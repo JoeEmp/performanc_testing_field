@@ -1,0 +1,10 @@
+.DS_Store
+.vscode
+.idea
+*.log
+*.out
+*.db
+*.sql
+__pycache__
+*.txt
+*.jmx
