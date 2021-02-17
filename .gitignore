@@ -8,3 +8,5 @@
 __pycache__
 *.txt
 *.jmx
+test.py
+demo.py
