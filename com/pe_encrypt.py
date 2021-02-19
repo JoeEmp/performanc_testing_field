@@ -3,6 +3,7 @@ import jwt
 from time import time
 import random
 import string
+from com.pe_service_error import PeException, LOGIN_ERROR
 
 SALT = 'pe'
 
@@ -23,10 +24,15 @@ def get_token(username):
 
 def sync_token(token):
     global SALT
-    return jwt.decode(token, SALT, True, algorithm='HS256')
+    try:
+        return jwt.decode(token, SALT, True, algorithm='HS256')
+    except Exception as e:
+        raise PeException(LOGIN_ERROR)
+
 
 def ranstr(num=32):
     return ''.join(random.sample(string.ascii_letters + string.digits, num))
+
 
 if "__main__" == __name__:
     token = get_token('13814177763')

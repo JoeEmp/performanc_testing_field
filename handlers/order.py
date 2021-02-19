@@ -44,6 +44,9 @@ class OrderHandler(BaseHandlers):
             self.finish(self.ser.order_detail(username, order_no))
         except MissingArgumentError as e:
             self.finish({'code': 1, 'msg': '%s不能为空' % e.arg_name})
+        except PeException as e:
+            logging.error(e)
+            self.finish(e.reason)
         except Exception as e:
             logging.error(e)
             self.finish(UNKNOW_ERROR)

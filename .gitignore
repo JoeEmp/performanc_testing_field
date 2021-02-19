@@ -10,3 +10,4 @@ __pycache__
 *.jmx
 test.py
 demo.py
+beanshell.*
