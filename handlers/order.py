@@ -4,6 +4,7 @@ from modules.order import GoodServer
 from com.pe_service_error import UNKNOW_ERROR, LOCAL_FAIL_ERROR, PeException
 import ast
 from tornado.web import MissingArgumentError
+from tornado import gen
 import logging
 
 
@@ -14,6 +15,7 @@ class OrderHandler(BaseHandlers):
         else:
             self.ser = OrderServer()
 
+    @gen.coroutine
     def post(self):
         suffix = self.request.uri.split('/')[-1].lower()
         if 'add' == suffix:
@@ -45,7 +47,7 @@ class OrderHandler(BaseHandlers):
         except MissingArgumentError as e:
             self.finish({'code': 1, 'msg': '%s不能为空' % e.arg_name})
         except PeException as e:
-            logging.error(e)
+            logging.error(e.reason)
             self.finish(e.reason)
         except Exception as e:
             logging.error(e)

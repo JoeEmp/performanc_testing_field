@@ -21,14 +21,11 @@ class LoginServer(Server):
             logging.warning(
                 'username:{} password:{} 用户不存在'.format(username, password))
             return self.error_tips("不存在该用户")
-        try:
-            if password == row['password']:
-                return {'code': 0, 'token': get_token(username)}
-            elif password != row['password']:
-                logging.warning(
-                    'username:{} password:{} 密码错误'.format(username, password))
-                return self.error_tips('密码错误')
-            else:
-                return self.error_tips('未知错误')
-        except Exception as e:
-            return self.error_tips(e)
+        if password == row['password']:
+            return {'code': 0, 'token': get_token(username)}
+        elif password != row['password']:
+            logging.warning(
+                'username:{} password:{} 密码错误'.format(username, password))
+            return self.error_tips('密码错误')
+        else:
+            return self.error_tips('未知错误')

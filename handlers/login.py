@@ -16,7 +16,6 @@ class LoginHandler(RequestHandler):
         else:
             self.ser = LoginServer()
 
-    @asynchronous
     @coroutine
     def post(self):
         try:

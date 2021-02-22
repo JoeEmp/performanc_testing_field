@@ -4,6 +4,9 @@ import settings
 from tornado.ioloop import IOLoop
 from tornado.web import Application
 from tornado.httpserver import HTTPServer
+from tornado import options
+from tornado.options import define, options
+define("port", default=settings.PORT, help="run on the given port ", type=int)
 
 
 def make_app(is_debug=False):
@@ -17,10 +20,10 @@ def make_app(is_debug=False):
 
 def main():
     app = make_app()
-    server = HTTPServer(app)
-    server.bind(settings.PORT)
-    server.start(0)  # forks one process per cpu with debug == False
-    IOLoop.current().start()
+    options.parse_command_line()
+    http_server = HTTPServer(app,xheaders=True)
+    http_server.listen(options.port)
+    IOLoop.instance().start()
 
 
 def debug_main():

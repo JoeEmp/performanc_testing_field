@@ -4,6 +4,7 @@ import logging
 from com.pe_service_error import UNKNOW_ERROR
 from tornado.web import MissingArgumentError
 import ast
+from tornado import gen
 
 class GoodHandler(BaseHandlers):
     def initialize(self, ser=None, *args, **kwargs):
@@ -12,6 +13,7 @@ class GoodHandler(BaseHandlers):
         else:
             self.ser = GoodServer()
 
+    @gen.coroutine
     def post(self):
         suffix = self.request.uri.split('/')[-1]
         if 'list' == suffix:
