@@ -1,5 +1,10 @@
 ### 业务功能
 
+1、用户登录
+2、用户浏览商品
+3、用户下单
+4、用户支付
+
 ### 初始化数据
 
 环境说明
@@ -14,13 +19,15 @@ docker 提供 mysql 服务
 
 ```shell
 # install shell
-python3 env_init.py && python3 env_init.py data
 pip3 install -r requirements.txt
 docker pull mysql:latest
+python3 env_init.py && python3 env_init.py data # 这句是初始化数据，可重置库的数据。
 ```
 
-start
-```
+### 运行
+
+```shell
+# start shell
 docker run -itd --name pe_test -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql
 kill -9 $(lsof -ti:10086)
 nohup python3 app.py &
