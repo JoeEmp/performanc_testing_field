@@ -13,9 +13,18 @@ docker 提供 mysql 服务
 运行下面脚本，初始化数据，会生成`csv`格式的`txt`文件供我们使用以及安装服务器的依赖
 
 ```shell
+# install shell
 python3 env_init.py && python3 env_init.py data
 pip3 install -r requirements.txt
 docker pull mysql:latest
+```
+
+start
+```
+docker run -itd --name pe_test -p 3306:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql
+kill -9 $(lsof -ti:10086)
+nohup python3 app.py &
+python3 tests/test_launch.py
 ```
 
 ### 文件目录结构
@@ -42,4 +51,4 @@ docker pull mysql:latest
 
 2、不调优(主要是菜，如果有开发大佬帮忙的话再好不过.)，服务器代码提供通过单元测试。确保正常使用。
 
-3、欢迎大家在 issue 留言,和 (`furnace_0xg@163.com`) 联系。
+3、欢迎大家在 issue 留言,和`furnace_0xg@163.com`联系。

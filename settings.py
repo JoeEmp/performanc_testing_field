@@ -1,11 +1,25 @@
 import logging
+import sys
 
+if len(sys.argv) >= 2 and sys.argv[1] == 'debug':
+    env = 'debug'
+else:
+    env = 'pro'
+
+log_config = {
+    'debug': dict(
+        format="%(asctime)s %(levelname)s \"%(pathname)s\", line %(lineno)d, %(message)s",
+        level=logging.INFO,
+    ),
+    'pro': dict(
+        format="%(asctime)s %(levelname)s \"%(pathname)s\", line %(lineno)d, %(message)s",
+        level=logging.WARNING,
+        filename='server.log'
+    )
+}
 
 logging.basicConfig(
-    # format="%(asctime)s",
-    format="%(asctime)s %(levelname)s \"%(pathname)s\", line %(lineno)d, %(message)s",
-    level=logging.INFO,
-    # filename='server.log'
+    **log_config[env]
 )
 
 PORT = 10086
